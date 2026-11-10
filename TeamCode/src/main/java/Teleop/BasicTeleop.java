@@ -16,10 +16,10 @@ public class BasicTeleop extends OpMode{
     // Drive
     private Motor fl, fr, bl, br;
     // Accessories
-    private Motor intake, sabine, sabine2;
+    //private Motor intake, sabine, sabine2;
     //sabines are the flywheels
 
-    private Servo servo1;
+    //private Servo servo1;
     //pusher to push artifact into flywheel
     double countsPerRev = 260.0; //can be changed as per rotation
     double countsPerDegree = countsPerRev / 360.0;
@@ -86,14 +86,14 @@ public class BasicTeleop extends OpMode{
 
 
         // Accessories
-        intake  = new Motor(hardwareMap.get(DcMotorEx.class, "intake"));
-        sabine  = new Motor(hardwareMap.get(DcMotorEx.class, "sabine"));
-        sabine2 = new Motor(hardwareMap.get(DcMotorEx.class, "sabine2"));
+        //intake  = new Motor(hardwareMap.get(DcMotorEx.class, "intake"));
+        //sabine  = new Motor(hardwareMap.get(DcMotorEx.class, "sabine"));
+        //sabine2 = new Motor(hardwareMap.get(DcMotorEx.class, "sabine2"));
 
 
         //servo setup
-        servo1 = hardwareMap.get(Servo.class, "servo1");
-        servo1.setPosition(0);
+        //servo1 = hardwareMap.get(Servo.class, "servo1");
+        //servo1.setPosition(0);
 
         //mecanum setup
         driver = new MecanumDriver(
@@ -174,8 +174,8 @@ public class BasicTeleop extends OpMode{
 
 
 
-        if (intakeForward) intake.setVelocity(intakeVelocity);
-        else intake.setVelocity(0);
+        //if (intakeForward) intake.setVelocity(intakeVelocity);
+        //else intake.setVelocity(0);
 
 
         // ================= SABINE =================
@@ -190,7 +190,7 @@ public class BasicTeleop extends OpMode{
             sabineReverse = !sabineReverse;
             sabineForward = false;
         }
-
+        /*
         if (sabineForward) {
             sabine.setVelocity(sabineVelocity);
             sabine2.setVelocity(sabineVelocity);
@@ -205,6 +205,8 @@ public class BasicTeleop extends OpMode{
             sabine.setVelocity(0);
             sabine2.setVelocity(0);
         }
+        /*
+         */
 
 // ================= STORAGE MANUAL HOLD =================
         double storageVelocity = 500;
@@ -221,14 +223,14 @@ public class BasicTeleop extends OpMode{
 
         // ======= SERVO =============
         // ======= SERVO (INSTANT PULSE) =======
-        if (gamepad1.right_bumper && !prevRB) {
+        /*if (gamepad1.right_bumper && !prevRB) {
             servo1.setPosition(SERVO_PUSH);
         }
 
         if (!gamepad1.right_bumper && prevRB) {
             servo1.setPosition(SERVO_SAFE);
         }
-
+        */
         prevRB = gamepad1.right_bumper;
 
         // ============ BUTTON STATE UPDATES =================
@@ -257,8 +259,8 @@ public class BasicTeleop extends OpMode{
         telemetry.addData("Current Ticks", storage.getCurrentPosition());
         telemetry.addData("Motor Busy", storage.isBusy());
         telemetry.addData("Sabine Target Vel", sabineVelocity);
-        telemetry.addData("Sabine Actual Vel", sabine.getVelocity());
-        telemetry.addData("Sabine2 Actual Vel", sabine2.getVelocity());
+        //telemetry.addData("Sabine Actual Vel", sabine.getVelocity());
+        //telemetry.addData("Sabine2 Actual Vel", sabine2.getVelocity());
 
         telemetry.update();
     }
