@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import launchpad.Constants;
+import launchpad.hardware.MotorConfig;
 import launchpad.movement.mecanum.MecanumCoefficientMatrix;
 import launchpad.movement.mecanum.MecanumCoefficientSet;
 import launchpad.movement.mecanum.MecanumDriver;
@@ -28,7 +30,7 @@ public class BasicTeleop extends OpMode{
 
 
 
-    private DcMotorEx storage;
+//    private DcMotorEx storage;
 
     //  Encoder constants (tested value-360 degrees= 286(encoder pos))
     private static final double COUNTS_PER_MOTOR_REV = 286.0;
@@ -79,10 +81,10 @@ public class BasicTeleop extends OpMode{
     public void init() {
 
         // Drive motors
-        fl = new Motor(hardwareMap.get(DcMotorEx.class, "fl"));
-        fr = new Motor(hardwareMap.get(DcMotorEx.class, "fr"));
-        bl = new Motor(hardwareMap.get(DcMotorEx.class, "bl"));
-        br = new Motor(hardwareMap.get(DcMotorEx.class, "br"));
+        fl = new Motor(hardwareMap.get(DcMotorEx.class, "fl"), new MotorConfig(Constants.MotorConstants.GOBILDA_312RPM_5203_2402_0019_TICKS_PER_ROTATION, 4));
+        fr = new Motor(hardwareMap.get(DcMotorEx.class, "fr"), new MotorConfig(Constants.MotorConstants.GOBILDA_312RPM_5203_2402_0019_TICKS_PER_ROTATION, 4));
+        bl = new Motor(hardwareMap.get(DcMotorEx.class, "bl"), new MotorConfig(Constants.MotorConstants.GOBILDA_312RPM_5203_2402_0019_TICKS_PER_ROTATION, 4));
+        br = new Motor(hardwareMap.get(DcMotorEx.class, "br"), new MotorConfig(Constants.MotorConstants.GOBILDA_312RPM_5203_2402_0019_TICKS_PER_ROTATION, 4));
 
 
 
@@ -102,9 +104,10 @@ public class BasicTeleop extends OpMode{
                 fl, fr, bl, br,
                 new MecanumCoefficientMatrix(
                         new MecanumCoefficientSet(1, 1, 1, 1),
-                        1
+                        9
                 ),
-                1
+                100
+
         );
         /*storage = hardwareMap.get(DcMotorEx.class, "storage");
 
@@ -153,7 +156,8 @@ public class BasicTeleop extends OpMode{
                         Math.max(Math.abs(frPower),
                                 Math.max(Math.abs(blPower), Math.abs(brPower)))));
 
-        double driveVelocity = 10000;
+        //double driveVelocity = 10000;
+        double driveVelocity = .5;
         boolean rtPressed = gamepad1.right_trigger > 0.1;
 
         if (rtPressed && !prevRT) {
@@ -213,16 +217,16 @@ public class BasicTeleop extends OpMode{
         /*
          */
 
-// ================= STORAGE MANUAL HOLD =================
-        double storageVelocity = 500;
-
-        if (gamepad1.y) {
-            storage.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            storage.setVelocity(storageVelocity);
-
-        } else {
-            storage.setVelocity(0);
-        }
+//// ================= STORAGE MANUAL HOLD =================
+//        double storageVelocity = 500;
+//
+//        if (gamepad1.y) {
+//            storage.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+//            storage.setVelocity(storageVelocity);
+//
+//        } else {
+//            storage.setVelocity(0);
+//        }
 
 
 
@@ -245,24 +249,24 @@ public class BasicTeleop extends OpMode{
         prevB  = gamepad1.b;
         prevX  = gamepad1.x;
         prevY  = gamepad1.y;
-        if (gamepad1.left_bumper && !prevLB) {
-            presetIndex = (presetIndex + 1) % PRESET_DEGREES.length;
-
-            int targetTicks = degreesToTicks(PRESET_DEGREES[presetIndex]);
-
-            storage.setTargetPosition(targetTicks);
-            storage.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            storage.setPower(1.0);
-        }
+//        if (gamepad1.left_bumper && !prevLB) {
+//            presetIndex = (presetIndex + 1) % PRESET_DEGREES.length;
+//
+//            int targetTicks = degreesToTicks(PRESET_DEGREES[presetIndex]);
+//
+//            storage.setTargetPosition(targetTicks);
+//            storage.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            storage.setPower(1.0);
+//        }
 
         prevLB = gamepad1.left_bumper;
 
         // ===== Telemetry =====
         telemetry.addData("Preset Index", presetIndex);
         telemetry.addData("Target Degrees", PRESET_DEGREES[presetIndex]);
-        telemetry.addData("Target Ticks", storage.getTargetPosition());
-        telemetry.addData("Current Ticks", storage.getCurrentPosition());
-        telemetry.addData("Motor Busy", storage.isBusy());
+//        telemetry.addData("Target Ticks", storage.getTargetPosition());
+//        telemetry.addData("Current Ticks", storage.getCurrentPosition());
+//        telemetry.addData("Motor Busy", storage.isBusy());
         telemetry.addData("Sabine Target Vel", sabineVelocity);
         //telemetry.addData("Sabine Actual Vel", sabine.getVelocity());
         //telemetry.addData("Sabine2 Actual Vel", sabine2.getVelocity());
