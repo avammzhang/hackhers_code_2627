@@ -1,6 +1,8 @@
 package Teleop;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -10,7 +12,7 @@ import launchpad.movement.mecanum.MecanumCoefficientSet;
 import launchpad.movement.mecanum.MecanumDriver;
 import launchpad.hardware.Motor;
 
-@Teleop
+@TeleOp
 public class BasicTeleop extends OpMode{
 
     // Drive
