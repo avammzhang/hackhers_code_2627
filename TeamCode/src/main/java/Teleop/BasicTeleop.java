@@ -106,11 +106,13 @@ public class BasicTeleop extends OpMode{
                 ),
                 1
         );
-        storage = hardwareMap.get(DcMotorEx.class, "storage");
+        /*storage = hardwareMap.get(DcMotorEx.class, "storage");
 
 
         storage.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         storage.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        */
+
 
         // ===== PIDF for RUN_TO_POSITION =====
         // Only P (for now?)
@@ -183,7 +185,7 @@ public class BasicTeleop extends OpMode{
         // ================= SABINE =================
         double sabineVelocity = 1000;
         double sabineVelocityb = 2500;
-        if (gamepad1.b && !prevB) {
+        /*if (gamepad1.b && !prevB) {
             sabineForward = !sabineForward;
             sabineReverse = false;
         }
@@ -191,7 +193,8 @@ public class BasicTeleop extends OpMode{
         if (gamepad1.x && !prevX) {
             sabineReverse = !sabineReverse;
             sabineForward = false;
-        }
+        */
+
         /*
         if (sabineForward) {
             sabine.setVelocity(sabineVelocity);
