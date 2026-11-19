@@ -83,6 +83,7 @@ import launchpad.movement.mecanum.MecanumDriver;
         public void loop() {
             // Automatically loops all registered subclasses
             super.loop();
+            double powerWithNectar = 0.5;
 
             // Loop all localization classes, etc, here
 
@@ -95,20 +96,30 @@ import launchpad.movement.mecanum.MecanumDriver;
             double x = gamepad1.left_stick_x;
             double rx = gamepad1.right_stick_x;
 
-            // driveOmni(y, rx, x);
+            //flywheels
+            if(gamepad1.b) { //start the flywheel
+                if(gamepad1.xWasPressed()) { //change power to a smaller value for nectar
+                    fwl.setPower(powerWithNectar);
+                    fwr.setPower(powerWithNectar);
+                } else if(gamepad1.yWasPressed()) {
+                    fwl.setPower(1); //change power back (y)
+                    fwr.setPower(1);
+                } else {
+                    fwl.setPower(1); //if x not pressed, keep the power to a higher one
+                    fwr.setPower(1);
+                }
+            } else{
+                fwl.setPower(0);
+                fwr.setPower(0);
+            }
 
+            //intake
             if (gamepad1.a) {
                 in.setPower(2);
             } else {
                 in.setPower(0);
             }
-            if (gamepad1.b){
-                fwl.setPower(1);
-                fwr.setPower(1);
-            } else{
-                fwl.setPower(0);
-                fwr.setPower(0);
-            }
+
 
         }
 }
